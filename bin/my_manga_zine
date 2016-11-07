@@ -1,0 +1,5 @@
+#!/Users/jph/.rvm/rubies/ruby-2.1.5/bin/ruby
+
+require_relative '../lib/my_manga_zine'
+
+MyManga::Zine.publish('zine')
