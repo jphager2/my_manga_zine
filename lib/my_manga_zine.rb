@@ -17,7 +17,9 @@ module MyManga
 
       serialized_name = serialized_name.join.to_i.to_s(32)
 
-      cbz("#{name}-#{serialized_name}")
+      dir = File.join(MyManga.download_dir, "#{name}-#{serialized_name}")
+
+      cbz(dir)
 
       utils.rm_r('tmp') if clean_up_files?
 
@@ -55,7 +57,7 @@ module MyManga
 
         pages.each do |page|
           filename = File.basename(page)
-          utils.cp(page, File.join(MyManga.download_dir, dir, filename))
+          utils.cp(page, File.join(dir, filename))
         end
 
         Mangdown::CBZ.one(dir)
