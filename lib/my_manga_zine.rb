@@ -70,7 +70,7 @@ module MyManga
       end
 
       def clean_up_files?
-        ENV['MY_MANGA_ZINE_CLEAN_UP'].nil? && !debug?
+        ENV['MY_MANGA_ZINE_NO_CLEAN_UP'].nil? && !debug?
       end
 
       def debug?
