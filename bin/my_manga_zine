@@ -1,4 +1,4 @@
-#!/Users/jph/.rvm/rubies/ruby-2.1.5/bin/ruby
+#!/usr/bin/env ruby
 
 require_relative '../lib/my_manga_zine'
 
