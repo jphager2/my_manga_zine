@@ -64,8 +64,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 4.0)
-  mangdown (~> 0.13)
+  activerecord
+  mangdown (~> 0.14)
   pg
   rpub
 
