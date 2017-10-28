@@ -4,6 +4,8 @@ require_relative '../../my_manga/lib/my_manga'
 
 module MyManga
   module Zine
+    LOG_FILE = File.expand_path('../log/my_manga_zine.log', __dir__).freeze
+
     def self.publish(name)
       Dir.mkdir('tmp') unless Dir.exist?('tmp')
 
@@ -29,6 +31,9 @@ module MyManga
     end
 
     class << self
+      def debug?
+        ENV['DEBUG'] || $DEBUG
+      end
 
       private
 
@@ -73,13 +78,13 @@ module MyManga
         ENV['MY_MANGA_ZINE_NO_CLEAN_UP'].nil? && !debug?
       end
 
-      def debug?
-        ENV['DEBUG'] || $DEBUG
-      end
-
       def utils
         debug? ? FileUtils::Verbose : FileUtils
       end
     end
   end
+end
+
+unless MyManga::Zine.debug?
+  Mangdown.configure_logger(file: MyManga::Zine::LOG_FILE)
 end
