@@ -2,4 +2,11 @@
 
 require_relative '../lib/my_manga_zine'
 
-MyManga::Zine.publish('zine')
+manga = Manga.where(nil)
+config = File.exapand_path('./manga.yml', MyManga.download_dir)
+
+if File.exist?(config)
+  manga = YAML.load_file(config).map { |name| MyManga[name] }
+end
+
+MyManga::Zine.publish('zine', manga.to_a)

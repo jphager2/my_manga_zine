@@ -6,10 +6,10 @@ module MyManga
   module Zine
     LOG_FILE = File.expand_path('../log/my_manga_zine.log', __dir__).freeze
 
-    def self.publish(name)
+    def self.publish(name, manga)
       Dir.mkdir('tmp') unless Dir.exist?('tmp')
 
-      zine = zine_content
+      zine = zine_content(manga)
       serialized_name = []
       zine.each do |chapter|
         serialized_name << chapter.id
@@ -37,16 +37,17 @@ module MyManga
 
       private
 
-      def zine_content
-        manga_count = Manga.count
-        chapter_count = 2 * manga_count
-        manga = Chapter
-                .unread
-                .where(manga_id: Manga.ids)
-                .order(:number)
-                .group_by(&:manga)
+      def zine_content(manga)
+        chapter_count = 2 * manga.length
+        chapters = Chapter
+                   .unread
+                   .where(manga_id: manga.map(&:id))
+                   .order(:number)
+                   .group_by(&:manga)
+                   .values
+                   .sort_by(&:length)
+                   .reverse
 
-        chapters = manga.values
         return if chapters.empty?
 
         zine = chapters.first.zip(*chapters.drop(1)).flatten.compact
