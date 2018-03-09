@@ -3,7 +3,7 @@
 require_relative '../lib/my_manga_zine'
 
 manga = Manga.where(nil)
-config = File.exapand_path('./manga.yml', MyManga.download_dir)
+config = File.expand_path('./manga.yml', MyManga.download_dir)
 
 if File.exist?(config)
   manga = YAML.load_file(config).map { |name| MyManga[name] }
