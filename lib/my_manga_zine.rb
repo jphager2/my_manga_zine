@@ -66,7 +66,7 @@ module MyManga
           utils.cp(page, File.join(dir, filename))
         end
 
-        Mangdown::CBZ.one(dir)
+        Mangdown::CBZ.one(dir, false)
 
         utils.rm_r(dir) if clean_up_files?
       end
